@@ -572,14 +572,16 @@ float IndioClass::analogRead(int pin)
   
         
     }
-    void IndioClass::digitalWrite(int pin, int value)
+    void IndioClass::digitalWrite(int pin, int value, bool nonBlocking=false)
     {
        
         this->setAddress(0x21);
 
 
       bitWrite(outputBuffer, pin*2-1, value);
-	  this->flushOutput();
+      if(nonBlocking==false) {
+        this->flushOutput();
+      }
     }
 
     int IndioClass::digitalRead(int pin)
@@ -589,6 +591,9 @@ float IndioClass::analogRead(int pin)
       // reads a bit from inputBuffer
       // reads the value of a pin from PCA9555 it's not the current State. Call flush() or flushInput() before read
       this->flushInput();
+      if(pin==-1) {
+          return inputBuffer;
+      }
       return (bitRead(inputBuffer,pin*2-2));
 	  
     }

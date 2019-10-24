@@ -105,9 +105,9 @@ class IndioClass
 	
 	void digitalMode(int pin, int mode);
    
-    void digitalWrite(int pin, int value);
+    void digitalWrite(int pin, int value, bool nonBlocking=false);
 
-    int digitalRead(int pin);
+    int digitalRead(int pin=-1);
     
     int interruptSource();
     
